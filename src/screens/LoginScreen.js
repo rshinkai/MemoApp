@@ -26,7 +26,7 @@ class LoginScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        
+
         <Text style={styles.title}>
           ログイン
         </Text>
@@ -34,14 +34,14 @@ class LoginScreen extends React.Component {
         <TextInput value="mail" style={styles.input} />
         <TextInput value="password" style={styles.input} />
 
-        <TouchableHighlight style={styles.button} onPress={() => {}} underlayColor="#C70F66">
+        <TouchableHighlight style={styles.button} onPress={() => { this.props.navigation.navigate('Home'); }} underlayColor="#C70F66">
           <Text style={styles.buttonTitle}>ログイン</Text>
         </TouchableHighlight>
 
-        <TouchableOpacity style={styles.signup} onPress={() => {}}>
+        <TouchableOpacity style={styles.signup} onPress={() => { this.props.navigation.navigate('MemoList'); }}>
           <Text style={styles.signupText}>登録する</Text>
         </TouchableOpacity>
-        
+
       </View>
     );
   }
