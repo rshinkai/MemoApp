@@ -15,12 +15,17 @@ class MemoDetailScreen extends React.Component {
         </View>
 
         <View style={styles.memoContent}>
-          <Text>
+          <Text style={styles.memoBody}>
             講座のアイディアです。
           </Text>
         </View>
 
-        <CircleButton name="pencil" style={styles.editButton} color="white" />
+        <CircleButton
+          name="pencil"
+          style={styles.editButton}
+          color="white"
+          onPress={() => { this.props.navigation.navigate('MemoEdit'); }}
+        />
       </View>
     );
   }
@@ -55,8 +60,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     flex: 1,
   },
+  memoBody: {
+    lineHeight: 22,
+    fontSize: 15,
+  },
   editButton: {
-    top: 75,
+    top: 68,
   },
 });
 

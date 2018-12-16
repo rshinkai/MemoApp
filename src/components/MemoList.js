@@ -1,29 +1,38 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 
 class MemoList extends React.Component {
   render() {
     return (
       <View style={styles.memoList}>
-        <View style={styles.memoListItem}>
-          <Text style={styles.memoTitle}>Memo</Text>
-          <Text style={styles.memoDate}>Date</Text>
-        </View>
 
-        <View style={styles.memoListItem}>
-          <Text style={styles.memoTitle}>Memo</Text>
-          <Text style={styles.memoDate}>Date</Text>
-        </View>
+        <TouchableHighlight onPress={() => this.props.navigation.navigate('MemoDetail')}>
+          <View style={styles.memoListItem}>
+            <Text style={styles.memoTitle}>Memo</Text>
+            <Text style={styles.memoDate}>Date</Text>
+          </View>
+        </TouchableHighlight>
 
-        <View style={styles.memoListItem}>
-          <Text style={styles.memoTitle}>Memo</Text>
-          <Text style={styles.memoDate}>Date</Text>
-        </View>
+        <TouchableHighlight onPress={() => this.props.navigation.navigate('MemoDetail')}>
+          <View style={styles.memoListItem}>
+            <Text style={styles.memoTitle}>Memo</Text>
+            <Text style={styles.memoDate}>Date</Text>
+          </View>
+        </TouchableHighlight>
 
-        <View style={styles.memoListItem}>
-          <Text style={styles.memoTitle}>Memo</Text>
-          <Text style={styles.memoDate}>Date</Text>
-        </View>
+        <TouchableHighlight onPress={() => this.props.navigation.navigate('MemoDetail')}>
+          <View style={styles.memoListItem}>
+            <Text style={styles.memoTitle}>Memo</Text>
+            <Text style={styles.memoDate}>Date</Text>
+          </View>
+        </TouchableHighlight>
+
+        <TouchableHighlight onPress={() => this.props.navigation.navigate('MemoDetail')}>
+          <View style={styles.memoListItem}>
+            <Text style={styles.memoTitle}>Memo</Text>
+            <Text style={styles.memoDate}>Date</Text>
+          </View>
+        </TouchableHighlight>
       </View>
     );
   }
