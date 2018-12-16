@@ -1,7 +1,10 @@
 import React from 'react';
 import { SecureStore } from 'expo';
-import { StyleSheet, View, Text, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet, View, Text, TextInput, TouchableHighlight, TouchableOpacity,
+} from 'react-native';
 import firebase from 'firebase';
+import { NavigationActions, StackActions } from 'react-navigation';
 
 class LoginScreen extends React.Component {
   state = {
@@ -21,6 +24,16 @@ class LoginScreen extends React.Component {
       })
       .catch();
     */
+  }
+
+  navigateToHome() {
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'Home' }),
+      ],
+    });
+    this.props.navigation.dispatch(resetAction);
   }
 
   handleSubmit() {
