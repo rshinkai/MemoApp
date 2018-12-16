@@ -1,6 +1,7 @@
 import React from 'react';
 import { SecureStore } from 'expo';
 import { StyleSheet, View, Text, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native';
+import firebase from 'firebase';
 
 class LoginScreen extends React.Component {
   state = {
@@ -22,6 +23,15 @@ class LoginScreen extends React.Component {
     */
   }
 
+  handleSubmit() {
+    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then(() => {
+        SecureStore.setItemAsync('email', this.state.email);
+        SecureStore.setItemAsync('password', this.state.password);
+        this.navigateToHome();
+      })
+      .catch();
+  }
 
   render() {
     return (
@@ -31,14 +41,39 @@ class LoginScreen extends React.Component {
           ログイン
         </Text>
 
-        <TextInput value="mail" style={styles.input} />
-        <TextInput value="password" style={styles.input} />
+        <TextInput
+          value={this.state.email}
+          onChangeText={(text) => { this.setState({ email: text }); }}
+          style={styles.input}
+          autoCapitalize="none"
+          autoCorrect={false}
+          placeholder="Email Address"
+          underlineColorAndroid="transparent"
+        />
 
-        <TouchableHighlight style={styles.button} onPress={() => { this.props.navigation.navigate('Home'); }} underlayColor="#C70F66">
+        <TextInput
+          value={this.state.password}
+          onChangeText={(text) => { this.setState({ password: text }); }}
+          style={styles.input}
+          autoCapitalize="none"
+          autoCorrect={false}
+          placeholder="Password"
+          secureTextEntry
+          underlineColorAndroid="transparent"
+        />
+
+        <TouchableHighlight
+          style={styles.button}
+          onPress={this.handleSubmit.bind(this)}
+          underlayColor="#C70F66"
+        >
           <Text style={styles.buttonTitle}>ログイン</Text>
         </TouchableHighlight>
 
-        <TouchableOpacity style={styles.signup} onPress={() => { this.props.navigation.navigate('MemoList'); }}>
+        <TouchableOpacity
+          style={styles.signup}
+          onPress={() => { this.props.navigation.navigate('MemoList'); }}
+        >
           <Text style={styles.signupText}>登録する</Text>
         </TouchableOpacity>
 
