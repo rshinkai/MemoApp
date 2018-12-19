@@ -1,10 +1,17 @@
 import React from 'react';
 import { SecureStore } from 'expo';
 import {
-  StyleSheet, View, Text, TextInput, TouchableHighlight, TouchableOpacity,
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native';
 import firebase from 'firebase';
 import { NavigationActions, StackActions } from 'react-navigation';
+
+import Loading from '../elements/Loading';
 
 class LoginScreen extends React.Component {
   state = {
@@ -46,50 +53,43 @@ class LoginScreen extends React.Component {
       .catch();
   }
 
+  handlePress() {
+    this.props.navigation.navigate('Signup');
+  }
+
   render() {
     return (
       <View style={styles.container}>
-
+        <Loading text="ログイン中" isLoading={this.state.isLoading} />
         <Text style={styles.title}>
           ログイン
         </Text>
-
         <TextInput
+          style={styles.input}
           value={this.state.email}
           onChangeText={(text) => { this.setState({ email: text }); }}
-          style={styles.input}
           autoCapitalize="none"
           autoCorrect={false}
           placeholder="Email Address"
           underlineColorAndroid="transparent"
         />
-
         <TextInput
+          style={styles.input}
           value={this.state.password}
           onChangeText={(text) => { this.setState({ password: text }); }}
-          style={styles.input}
           autoCapitalize="none"
           autoCorrect={false}
           placeholder="Password"
           secureTextEntry
           underlineColorAndroid="transparent"
         />
-
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.handleSubmit.bind(this)}
-          underlayColor="#C70F66"
-        >
-          <Text style={styles.buttonTitle}>ログイン</Text>
+        <TouchableHighlight style={styles.button} onPress={this.handleSubmit.bind(this)} underlayColor="#C70F66">
+          <Text style={styles.buttonTitle}>ログインする</Text>
         </TouchableHighlight>
 
-        <TouchableOpacity
-          style={styles.signup}
-          onPress={() => { this.props.navigation.navigate('MemoList'); }}
-        >
+        <TouchableOpacity style={styles.signup} onPress={this.handlePress.bind(this)}>
           <Text style={styles.signupText}>登録する</Text>
         </TouchableOpacity>
-
       </View>
     );
   }

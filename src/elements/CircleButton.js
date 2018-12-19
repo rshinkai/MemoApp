@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, TouchableHighlight } from 'react-native';
-import { createIconSet } from '@expo/vector-icons';
-
 import { Font } from 'expo';
-import FontAwesome from '../../assets/fonts/fa-solid-900.ttf';
+
+import { createIconSet } from '@expo/vector-icons';
+import { StyleSheet, View, TouchableHighlight } from 'react-native';
+import fontAwsome from '../../assets/fonts/fa-solid-900.ttf';
 
 const CustomIcon = createIconSet({
+  check: '\uf00c',
   pencil: '\uf303',
   plus: '\uf067',
 }, 'FontAwesome');
@@ -13,13 +14,12 @@ const CustomIcon = createIconSet({
 class CircleButton extends React.Component {
   state = {
     fontLoaded: false,
-  };
+  }
 
   async componentWillMount() {
     await Font.loadAsync({
-      FontAwesome,
+      FontAwesome: fontAwsome,
     });
-
     this.setState({ fontLoaded: true });
   }
 
@@ -36,7 +36,7 @@ class CircleButton extends React.Component {
 
     return (
       <TouchableHighlight style={[styles.container, style]} onPress={onPress} underlayColor="transparent">
-        <View style={[styles.circleButton, style, { backgroundColor: bgColor }]}>
+        <View style={[styles.circleButton, { backgroundColor: bgColor }]}>
           {
             this.state.fontLoaded ? (
               <CustomIcon name={name} style={[styles.circleButtonTitle, { color: textColor }]} />

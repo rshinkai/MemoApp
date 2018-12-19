@@ -1,44 +1,24 @@
 import React from 'react';
 import { StyleSheet, KeyboardAvoidingView, TextInput } from 'react-native';
-
 import firebase from 'firebase';
 import { db } from '../../App';
 
 import CircleButton from '../elements/CircleButton';
 
-class MemoEditScreen extends React.Component {
+class MemoCreateScreen extends React.Component {
   state = {
     body: '',
-    key: '',
-  }
-
-  componentWillMount() {
-    const { params } = this.props.navigation.state;
-    this.setState({
-      body: params.memo.body,
-      key: params.memo.key,
-    });
   }
 
   handlePress() {
     const { currentUser } = firebase.auth();
-    // const newDate = new Date();
-    const newDate = firebase.firestore.Timestamp.fromDate(new Date());
-    const docRef = db.collection(`users/${currentUser.uid}/memos`).doc(this.state.key);
-    docRef
-      .update({
-        body: this.state.body,
-        createdOn: newDate, // firebase.firestore.FieldValue.serverTimestamp()
-      })
+    db.collection(`users/${currentUser.uid}/memos`).add({
+      body: this.state.body,
+      createdOn: firebase.firestore.Timestamp.fromDate(new Date()),
+    })
       .then(() => {
         this.setState({ body: this.state.body }); // WORKAROUND: bodyもここで更新しておく
-        const { navigation } = this.props;
-        navigation.state.params.returnMemo({
-          body: this.state.body,
-          key: this.state.key,
-          createdOn: newDate,
-        });
-        navigation.goBack();
+        this.props.navigation.goBack();
       })
       .catch((error) => {
         global.console.log(error);
@@ -53,7 +33,6 @@ class MemoEditScreen extends React.Component {
           multiline
           value={this.state.body}
           onChangeText={(text) => { this.setState({ body: text }); }}
-          underlineColorAndroid="transparent"
           textAlignVertical="top"
         />
         <CircleButton name="check" onPress={this.handlePress.bind(this)} />
@@ -78,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MemoEditScreen;
+export default MemoCreateScreen;
