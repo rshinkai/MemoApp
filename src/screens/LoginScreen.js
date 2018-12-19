@@ -15,8 +15,8 @@ import Loading from '../elements/Loading';
 
 class LoginScreen extends React.Component {
   state = {
-    email: 'user1@example.com',
-    password: 'password',
+    email: '',
+    password: '',
     isLoading: false,
   }
 
